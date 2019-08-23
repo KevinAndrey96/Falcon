@@ -18,8 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/questions/index', 'QuestionsController@index')->name('questions');
-Route::patch('/questions/crear',[
+/*Route::get('/questions/index', 'QuestionsController@index')->name('questions');
+Route::get('/questions/crear', 'QuestionsController@crear')->name('questions/crear');
+Route::post('/questions', 'QuestionsController@store');*/
+Route::resource('/questions', 'QuestionsController');
+/*Route::patch('/questions/crear',[
     'as' => 'questions.store',
-    'uses' => 'QuestionController@store'
-]);
+    'uses' => 'QuestionsController@store'
+]);*/
+/*Route::get('/questions/crear',[
+    'as' => 'questions.store',
+    'uses' => 'QuestionsController@crear'
+]);*/

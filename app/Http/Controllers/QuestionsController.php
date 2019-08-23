@@ -17,18 +17,17 @@ use Storage;
 
 class QuestionsController extends Controller
 {
-    public function crear()
+    public function create()
 	{
-	    $questions = Questions::all();
-	    return view('questions.crear', compact('questions'));
+	    return view('questions.create');
 	}
-	public function store(ItemCreateRequest $request)
+	public function store(Request $request)
 	{
 	    // Instancio al modelo Jugos que hace llamado a la tabla 'jugos' de la Base de Datos
-	    $questions = new Questions; 
+	    //$questions = new Questions; 
 	 
 	    // Recibo todos los datos del formulario de la vista 'crear.blade.php'
-	    $questions->title = $request->title;
+	    /*$questions->title = $request->title;
 	    $questions->area = $request->area;
 	    $questions->answer = $request->answer;
 	    $questions->optionA = $request->optionA;
@@ -36,15 +35,36 @@ class QuestionsController extends Controller
 	    $questions->optionC = $request->optionC;
 	    $questions->optionD = $request->optionD;
 	    $questions->optionE = $request->optionE;
-	    
+	    */
 	    // Almacenos la imagen en la carpeta publica especifica, esto lo veremos más adelante 
 	    //$questions->img = $request->file('img')->store('/');
 	 
 	    // Inserto todos los datos en mi tabla 'questions' 
-	    $questions->save();
+	    //$questions->save();
 	 
 	    // Hago una redirección a la vista principal con un mensaje 
-	    return redirect('home')->with('message','Guardado Satisfactoriamente!');
+	    //return redirect('home')->with('message','Guardado Satisfactoriamente!');
+
+	    $request->validate([
+	        'title'=>'required',
+	        'area'=> 'required',
+	        'question'=> 'required',
+	        'answer' => 'required',
+	        'optionA' => 'required'
+	      ]);
+	      $questions = new Questions([
+	        'title' => $request->get('title'),
+	        'area'=> $request->get('area'),
+	        'question'=> $request->get('question'),
+	        'answer'=> $request->get('answer'),
+	        'optionA'=> $request->get('optionA'),
+	        'optionB'=> $request->get('optionB'),
+	        'optionC'=> $request->get('optionC'),
+	        'optionD'=> $request->get('optionD'),
+	        'optionE'=> $request->get('optionE')
+	      ]);
+	      $questions->save();
+	      return redirect('/questions')->with('success', 'Guardado con éxito');
 	}
 	public function index()
 	{
@@ -88,5 +108,9 @@ class QuestionsController extends Controller
 	    // Muestro un mensaje y redirecciono a la vista principal 
 	    Session::flash('message', 'Eliminado Satisfactoriamente !');
 	    return Redirect::to('questions');
+	}
+	public function show($id)
+	{
+	    //
 	}
 }
