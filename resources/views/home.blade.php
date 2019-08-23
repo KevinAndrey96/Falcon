@@ -15,10 +15,13 @@
                     @endif
                     <h1>Bienvenido, {{ auth()->user()->name }}</h1>
                     <hr>
-                    <a href="#" class="btn btn-primary form-control">Cuestionarios</a><br><br>
-                    <a href="#" class="btn btn-primary form-control">Usuarios</a><br><br>
-                    <a href="#" class="btn btn-primary form-control">Estadisticas</a><br><br>
-
+                    <p>Admin</p>
+                        <a href="#" class="btn btn-primary form-control">Cuestionarios</a><br><br>
+                        <a href="#" class="btn btn-primary form-control">Calificaciones</a><br><br>
+                        <a href="#" class="btn btn-primary form-control">Estadisticas</a><br><br>
+                    <p>User</p>
+                        <a href="#" class="btn btn-primary form-control">Cuestionarios</a><br><br>
+                        <a href="#" class="btn btn-primary form-control">Calificaciones</a><br><br>
                 </div>
             </div>
         </div>

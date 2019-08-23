@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/questions/index', 'QuestionsController@index')->name('questions');
+Route::patch('/questions/crear',[
+    'as' => 'questions.store',
+    'uses' => 'QuestionController@store'
+]);
