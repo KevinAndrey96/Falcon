@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,17 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="https://unpkg.com/bootstrap-table@1.15.4/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 <!--===============================================================================================-->
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+					<script src="js/pagination.js"></script>
 </head>
 <body>
 	
@@ -27,13 +39,13 @@
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100">
-					<table>
+					<table id="Tabla" data-toggle="table" data-pagination="true">
 						<thead>
 							<tr class="table100-head">
 								<th class="column1">Cuestionario</th>
 								<th class="column2">Area</th>
 								<th class="column3">Pregunta</th>
-								<th class="column4">Acción</th>
+								<th class="column3">Acción</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,12 +54,33 @@
 									<td class="column1">{{$question->title}}</td>
 									<td class="column2">{{$question->area}}</td>
 									<td class="column3">{{$question->question}}</td>
-									<td class="column4">Borrar/Editar/Ver</td>
+									<td class="column3">
+										<div class="row">
+											<a href="{{ route('questions.edit',$question->id)}}" class="btn btn-primary">Editar</a> 
+											<form action="{{ route('questions.destroy', $question->id)}}" method="post">
+						                  @csrf
+						                  @method('DELETE')
+						                  <button class="btn btn-danger" type="submit">Borrar</button>
+						                </form>
+						            	</div>
+						            </td>
 								</tr>
 							@endforeach
 								
 						</tbody>
 					</table>
+					
+					
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#Tabla').bootstrapTable({
+  pagination: true
+});
+    });
+    
+</script>
+					<br>
+					<a class="btn btn-info" href="questions/create">Agregar</a>
 				</div>
 			</div>
 		</div>
@@ -68,3 +101,4 @@
 
 </body>
 </html>
+@endsection

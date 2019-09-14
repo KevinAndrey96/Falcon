@@ -10,5 +10,5 @@ class Questions extends Model
     protected $table = 'questions';
     
     // Declaro los campos que usaré de la tabla 'jugos' 
-    protected $fillable = ['title', 'area', 'question', 'answer', 'optionA', 'optionB', 'optionC', 'optionD', 'optionE'];
+    protected $fillable = ['id','title', 'area', 'question', 'answer', 'optionA', 'optionB', 'optionC', 'optionD', 'optionE'];
 }

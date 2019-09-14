@@ -23,28 +23,6 @@ class QuestionsController extends Controller
 	}
 	public function store(Request $request)
 	{
-	    // Instancio al modelo Jugos que hace llamado a la tabla 'jugos' de la Base de Datos
-	    //$questions = new Questions; 
-	 
-	    // Recibo todos los datos del formulario de la vista 'crear.blade.php'
-	    /*$questions->title = $request->title;
-	    $questions->area = $request->area;
-	    $questions->answer = $request->answer;
-	    $questions->optionA = $request->optionA;
-	    $questions->optionB = $request->optionB;
-	    $questions->optionC = $request->optionC;
-	    $questions->optionD = $request->optionD;
-	    $questions->optionE = $request->optionE;
-	    */
-	    // Almacenos la imagen en la carpeta publica especifica, esto lo veremos más adelante 
-	    //$questions->img = $request->file('img')->store('/');
-	 
-	    // Inserto todos los datos en mi tabla 'questions' 
-	    //$questions->save();
-	 
-	    // Hago una redirección a la vista principal con un mensaje 
-	    //return redirect('home')->with('message','Guardado Satisfactoriamente!');
-
 	    $request->validate([
 	        'title'=>'required',
 	        'area'=> 'required',
@@ -71,31 +49,36 @@ class QuestionsController extends Controller
 	    $questions = Questions::all();
 	    return view('questions.index', compact('questions')); 
 	}
-	public function actualizar($id)
+	public function edit($id)
 	{
+
 	    $questions = Questions::find($id);
-	    return view('questions.actualizar',['questions'=>$questions]);
+        return view('questions.edit', compact('questions'));
+	    //return view('questions.edit',['questions'=>$questions]);
 	}
-	public function update(ItemUpdateRequest $request, $id)
-	{        
-	    // Recibo todos los datos desde el formulario Actualizar
-	    $questions = Questions::find($id);
-	    $questions->title = $request->title;
-	    $questions->area = $request->area;
-	    $questions->answer = $request->answer;
-	    $questions->optionA = $request->optionA;
-	    $questions->optionB = $request->optionB;
-	    $questions->optionC = $request->optionC;
-	    $questions->optionD = $request->optionD;
-	    $questions->optionE = $request->optionE;
-	 
-	    
-	    // Actualizo los datos en la tabla 'jugos'
-	    $jugos->save();
-	 
-	    // Muestro un mensaje y redirecciono a la vista principal 
-	    Session::flash('message', 'Editado Satisfactoriamente !');
-	    return Redirect::to('questions');
+	public function update(Request $request, $id)
+	{  
+		//dd($request);
+	    $request->validate([
+        'title'=>'required',
+        'area'=> 'required',
+        'question' => 'required',
+        'answer' => 'required'
+      ]);
+
+      $question = Questions::find($id);
+      $question->title = $request->get('title');
+      $question->area = $request->get('area');
+      $question->question = $request->get('question');
+      $question->answer = $request->get('answer');
+      $question->optionA = $request->get('optionA');
+      $question->optionB = $request->get('optionB');
+      $question->optionC = $request->get('optionC');
+      $question->optionD = $request->get('optionD');
+      $question->optionE = $request->get('optionE');
+      $question->save();
+
+      return redirect('/questions')->with('success', 'Pregunta actualizada con éxito');
 	}
 	public function eliminar($id)
 	{
@@ -112,5 +95,12 @@ class QuestionsController extends Controller
 	public function show($id)
 	{
 	    //
+	}
+	public function destroy($id)
+	{
+		$questions = Questions::find($id);
+	    $questions->delete();
+
+	     return redirect('/questions')->with('success', 'Registro eliminado con éxito');
 	}
 }
