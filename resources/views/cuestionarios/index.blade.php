@@ -13,12 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <h1>Por favor seleccione el cuestionario a diligenciar</h1>
+                    <center><h1>Por favor seleccione el cuestionario a diligenciar</h1></center>
                     <hr>
                         
                     @foreach($cuestionarios as $cuestionario) 
                                 
-                                    <a href="{{ url('/questions') }}" class="btn btn-primary form-control">{{$cueestionario->title}}</a>
+                                    <a href="{{ url('/questions') }}" class="btn btn-primary form-control">{{$cuestionario->title}}</a>
                                 
                             @endforeach
                 </div>
